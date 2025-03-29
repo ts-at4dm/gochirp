@@ -29,7 +29,7 @@ func HandleConnections(conn net.Conn) {
 
 	// Lock mutex, initialize UserMessages for the username, then unlock.
 	mu.Lock()
-	userMessagesMap[username] = &models.UserMessages{Username: username, Message: []string{}}
+	UserMessagesMap[username] = &models.UserMessages{Username: username, Message: []string{}}
 	mu.Unlock()
 
 	for {
@@ -44,9 +44,9 @@ func HandleConnections(conn net.Conn) {
 		fmt.Printf("Recieved: %s", msg)
 
 		mu.Lock()
-		userMessagesMap[usernam].Message = append(userMessagesMap[username].Message, msg)
+		UserMessagesMap[username].Message = append(UserMessagesMap[username].Message, msg)
 		mu.Unlock()
-		
+
 		// Echo back to the client
 		_, err = conn.Write([]byte("Echo:" + msg))
 		if err != nil {

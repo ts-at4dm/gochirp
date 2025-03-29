@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net"
 	"log"
 	"GoChirp/handlers"
@@ -8,7 +9,7 @@ import (
 
 func main() {
 	// Listen on TCP port 8080
-	listener, err := net.Listen("tcp", "172.19.25.26:8080")
+	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}
@@ -22,6 +23,7 @@ func main() {
 		// Accepts a new connection
 		conn, err := listener.Accept()
 		if err != nil {
+			fmt.Printf("Error: %v", err)
 			log.Printf("Connection acception error: %v", err)
 		}
 
